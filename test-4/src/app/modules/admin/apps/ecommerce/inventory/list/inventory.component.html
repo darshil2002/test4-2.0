@@ -27,14 +27,74 @@
                     [placeholder]="'Search products'">
             </mat-form-field>
             <!-- Add product button -->
-            <button
+            <!-- inbuulit button nikadyu -->
+
+            <!-- <button
                 class="ml-4"
                 mat-flat-button
                 [color]="'primary'"
                 (click)="createProduct()">
                 <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
                 <span class="ml-2 mr-1">Add</span>
-            </button>
+            </button> -->
+            <button  class="btn btn-primary my-3 mx-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Add new Building 
+              </button>
+              
+              <!-- Modal -->
+              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <!-- add form  -->
+              
+                      <form #NewProgramData="ngForm" >
+                        <div class="mb-3">
+                          <label for="buildingName" class="form-label">building Name</label>
+                          <input type="text" class="form-control" [ngModel]="" name="buildingName">
+                        </div>
+              
+                        <div class="mb-3">
+                          <label for="buildingNumber" class="form-label">building Number</label>
+                          <input type="text" class="form-control" [ngModel]="" name="buildingNumber">
+                        </div>
+              
+                        <div class="mb-3">
+                          <label for="Architect" class="form-label">Architect</label>
+                          <input type="text" class="form-control" [ngModel]="" name="Architect">
+                        </div>
+              
+                        <div class="mb-3">
+                          <label for="contractor" class="form-label"> contractor </label>
+                          <input type="text" class="form-control" [ngModel]="" name="contractor">
+                        </div>
+                        <div class="mb-3">
+                          <label for="renovation" class="form-label"> renovation history </label>
+                          <input type="text" class="form-control" [ngModel]="" name="renovation">
+                        </div>
+                        <div class="mb-3">
+                          <label for="contractor" class="form-label"> Construction Cost </label>
+                          <input type="number" class="form-control" [ngModel]="" name="cost">
+                        </div>
+                        <div class="mb-3">
+                          <label for="description" class="form-label"> description </label>
+                          <input type="text" class="form-control" [ngModel]="" name="description">
+                        </div>
+
+                        <input type="text" class="form-control datepicker">
+
+              
+                        <button class="btn btn-primary">Submit</button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
         </div>
     </div>
 
@@ -65,8 +125,8 @@
                             </div>
                             <div
                                 class="hidden lg:block"
-                                [mat-sort-header]="'architect'">
-                                architect
+                                [mat-sort-header]="'Architect'">
+                                Architect
                             </div>
                             <div
                                 class="hidden lg:block"
@@ -153,7 +213,7 @@
                                         <button
                                             class="min-w-10 min-h-7 h-7 px-2 leading-6"
                                             mat-stroked-button
-                                            (click)="toggleDetails(product.id)">
+                                            (click)="toggleDetails(product.uniqueId)">
                                             <mat-icon
                                                 class="icon-size-5"
                                                 [svgIcon]="selectedProduct?.id === product.id ? 'heroicons_solid:chevron-up' : 'heroicons_solid:chevron-down'"></mat-icon>

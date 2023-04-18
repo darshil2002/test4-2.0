@@ -88,6 +88,8 @@ export class InventoryListComponent implements OnInit, AfterViewInit, OnDestroy
     ngOnInit(): void
     {
 
+        
+
         this._inventoryService.getDataDarshil().pipe(pluck('configs')).subscribe(res=>{
             console.log(res);
             this.darshilAllData=res;
@@ -262,6 +264,7 @@ export class InventoryListComponent implements OnInit, AfterViewInit, OnDestroy
      */
     toggleDetails(productId: string): void
     {
+        console.log(productId)
         // If the product is already selected...
         if ( this.selectedProduct && this.selectedProduct.id === productId )
         {
@@ -505,7 +508,10 @@ export class InventoryListComponent implements OnInit, AfterViewInit, OnDestroy
     createProduct(): void
     {
         // Create the product
-        this._inventoryService.createProduct().subscribe((newProduct) => {
+        console.log('asdfjlkdsjflkjdsfdsjfl')
+
+
+        /* this._inventoryService.createProduct().subscribe((newProduct) => {
 
             // Go to new product
             this.selectedProduct = newProduct;
@@ -515,7 +521,7 @@ export class InventoryListComponent implements OnInit, AfterViewInit, OnDestroy
 
             // Mark for check
             this._changeDetectorRef.markForCheck();
-        });
+        }); */
     }
 
     /**
