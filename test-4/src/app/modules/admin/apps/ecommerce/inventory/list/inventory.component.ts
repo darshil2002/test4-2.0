@@ -99,22 +99,7 @@ export class InventoryListComponent implements OnInit, AfterViewInit, OnDestroy
     private _unsubscribeAll: Subject<any> = new Subject<any>();
     shareDataId:any;
 
-/* DataToBeSent:DataToSend={
-BuildingNo: 0,
-BuildingName: '',
-Description: '',
-Date_constructed: '',
-Architect: '',
-Contractor: '',
-Construction_Cost: 0,
-Renovation_History:'',
-Campus: 'ecc7a770-1d53-4f6f-8507-03eca95dc4bf',
-Zone: '',
-wing: '',
-IsActive: false,
-BuildingImage: ''
-} */
-    /* dsfjskd */
+
     
 
     /* my data darshil  */
@@ -190,19 +175,7 @@ BuildingImage: ''
     };
 
 
-        /* this._inventoryService.getDataDarshil().pipe(pluck('configs')).subscribe(res=>{
-            console.log(res);
-            this.darshilAllData=res;
-        })
-
-        this._inventoryService.getCampusDarshil().pipe(pluck('zones')).subscribe(res=>{
-            console.log('all data of campus ...',res);
-            this.zonesTemp=res;
-            const newArray = this.zonesTemp.map(({ name, campusId }) => ({ name, campusId }));
-            console.log(newArray);
-        }) */
-
-        /*  */
+     
      
         // Create the selected product form
         this.selectedProductForm = this._formBuilder.group({
