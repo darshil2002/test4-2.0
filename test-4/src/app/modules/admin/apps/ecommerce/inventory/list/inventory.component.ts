@@ -286,22 +286,27 @@ BuildingImage: ''
   onSelectAll(items: any) {
     console.log(items);
   }
-    getAllApiData(){
-        this._inventoryService.getDataDarshil().pipe(pluck('configs')).subscribe(res=>{
-            console.log(res);
-            this.darshilAllData=res;
-        })
-
+  getAllApiData(){
         this._inventoryService.getCampusDarshil().pipe(pluck('zones')).subscribe(res=>{
             /* console.log('all data of campus ...',res); */
             this.zonesTemp=res;
             const newArray = this.zonesTemp.map(({ name, campusId }) => ({ name, campusId }));
             console.log(newArray);
         })
+        this._inventoryService.getDataDarshil().pipe(pluck('configs')).subscribe(res=>{
+            console.log(res);
+            this.darshilAllData=res;
+        })
+
+        this._inventoryService.getWingDataD().pipe(pluck('wings')).subscribe(res=>{
+            console.log(res)
+        })
+
     }
 
     myFormData(data:any){
            /* debugger; */
+           console.log(data.date)
            /* console.log('my datasdkhfkjsfhds',data) */
            this._inventoryService
             .AddConfigData(data).subscribe(res=>{
@@ -416,9 +421,7 @@ BuildingImage: ''
         this.editData.Description=filteredArray[0].description;
         this.editData.Renovation_History=filteredArray[0].renovation_History;
         
-        /* this._inventoryService.editConfigData().subscribe(res=>{
-            console.log(res);
-        }) */
+       
 
 
         // If the product is already selected...

@@ -43,10 +43,10 @@ export class InventoryService
         Construction_Cost: 0,
         Renovation_History:'',
         Campus: 'ecc7a770-1d53-4f6f-8507-03eca95dc4bf',
-        Zone: '',
+        Zone: 'East',
         wing: '',
         IsActive: false,
-        BuildingImage: ''
+        BuildingImage: 'myImage.jpg'
         }
 
 dataForEdit:editDataType={
@@ -116,6 +116,10 @@ dUniqueId:string
       getCampusDarshil(){
         return this._httpClient.get<RootZone>('https://cmi-ofm.azurewebsites.net/api/Campus/GetActiveCampus')
       } 
+
+      getWingDataD(){
+        return this._httpClient.get('https://cmi-ofm.azurewebsites.net/api/Wing/GetActiveWings')
+      }
       AddConfigData(data: any) {
         console.log('my Data',data);
         this.DataToBeSent.Architect=data.architect;
@@ -129,8 +133,8 @@ dUniqueId:string
         this.DataToBeSent.Description=data.description
         const formObject = new FormData();
 
-        for (let key in data) {
-            formObject.append(key, (data as any)[key]);
+        for (let key in this.DataToBeSent) {
+            formObject.append(key, (this.DataToBeSent as any)[key]);
         }
 
         return this._httpClient.post(

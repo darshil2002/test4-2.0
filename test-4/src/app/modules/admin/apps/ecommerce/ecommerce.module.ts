@@ -18,8 +18,8 @@ import { InventoryComponent } from 'app/modules/admin/apps/ecommerce/inventory/i
 import { InventoryListComponent } from 'app/modules/admin/apps/ecommerce/inventory/list/inventory.component';
 import { ecommerceRoutes } from 'app/modules/admin/apps/ecommerce/ecommerce.routing';
 import { MAT_DATE_FORMATS } from '@angular/material/core';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { NativeDateModule } from '@angular/material/core';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 @NgModule({
     declarations: [
@@ -43,7 +43,7 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
         MatTooltipModule,
         SharedModule,
         MatDatepickerModule,
-        MatNativeDateModule,
+        NativeDateModule,
         NgMultiSelectDropDownModule.forRoot()
     ]
 })
