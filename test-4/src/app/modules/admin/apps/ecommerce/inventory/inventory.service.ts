@@ -34,7 +34,7 @@ export class InventoryService
     // @ Accessors
     // -----------------------------------------------------------------------------------------------------
     DataToBeSent:DataToSend={
-        BuildingNo: 0,
+        BuildingNo: 100,
         BuildingName: '',
         Description: '',
         Date_constructed: '',

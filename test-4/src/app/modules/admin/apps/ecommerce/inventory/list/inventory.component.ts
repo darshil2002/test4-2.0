@@ -11,6 +11,9 @@ import { InventoryService } from 'app/modules/admin/apps/ecommerce/inventory/inv
 import { Config, DataToSend, Root } from '../../../buildingInterface';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 
+// dropdown imports 
+
+
 @Component({
     selector       : 'inventory-list',
     templateUrl    : './inventory.component.html',
@@ -138,7 +141,24 @@ BuildingImage: ''
     {
         this.getAllApiData()
     
-
+        this.dropdownList = [
+      { item_id: '04cd0a96-dfb6-47b3-af90-11c49b1c51f9', item_text: 'Aquarious' },
+      { item_id: 'cd204cc9-dac7-4724-b08c-cfdfbda02969', item_text: 'Aries' },
+   
+    ];
+    this.selectedItems = [
+      /* { item_id: 3, item_text: 'Pune' },
+      { item_id: 4, item_text: 'Navsari' } */
+    ];
+    this.dropdownSettings= {
+      singleSelection: false,
+      idField: 'item_id',
+      textField: 'item_text',
+      selectAllText: 'Select All',
+      unSelectAllText: 'UnSelect All',
+      itemsShowLimit: 3,
+      allowSearchFilter: true
+    };
         /* this._inventoryService.getDataDarshil().pipe(pluck('configs')).subscribe(res=>{
             console.log(res);
             this.darshilAllData=res;
@@ -257,7 +277,15 @@ BuildingImage: ''
             )
             .subscribe();
     }
+    onItemSelect(item: any) {
+    /* console.log(item); */
+    console.log('wind id ...',item.item_id)
+    this._inventoryService.DataToBeSent.wing=item.item_id
 
+  }
+  onSelectAll(items: any) {
+    console.log(items);
+  }
     getAllApiData(){
         this._inventoryService.getDataDarshil().pipe(pluck('configs')).subscribe(res=>{
             console.log(res);

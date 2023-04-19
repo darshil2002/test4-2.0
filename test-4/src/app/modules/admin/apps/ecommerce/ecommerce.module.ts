@@ -17,7 +17,10 @@ import { SharedModule } from 'app/shared/shared.module';
 import { InventoryComponent } from 'app/modules/admin/apps/ecommerce/inventory/inventory.component';
 import { InventoryListComponent } from 'app/modules/admin/apps/ecommerce/inventory/list/inventory.component';
 import { ecommerceRoutes } from 'app/modules/admin/apps/ecommerce/ecommerce.routing';
-
+import { MAT_DATE_FORMATS } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 @NgModule({
     declarations: [
         InventoryComponent,
@@ -38,7 +41,10 @@ import { ecommerceRoutes } from 'app/modules/admin/apps/ecommerce/ecommerce.rout
         MatSelectModule,
         MatSlideToggleModule,
         MatTooltipModule,
-        SharedModule
+        SharedModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        NgMultiSelectDropDownModule.forRoot()
     ]
 })
 export class ECommerceModule
