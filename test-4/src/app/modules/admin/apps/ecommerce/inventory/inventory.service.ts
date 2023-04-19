@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, filter, map, Observable, of, switchMap, take, tap, throwError } from 'rxjs';
 import { InventoryBrand, InventoryCategory, InventoryPagination, InventoryProduct, InventoryTag, InventoryVendor } from 'app/modules/admin/apps/ecommerce/inventory/inventory.types';
-import { DataToSend, Root, RootZone } from '../../buildingInterface';
+import { DataToSend, editDataType, Root, RootZone } from '../../buildingInterface';
 
 @Injectable({
     providedIn: 'root'
@@ -48,6 +48,27 @@ export class InventoryService
         IsActive: false,
         BuildingImage: ''
         }
+
+dataForEdit:editDataType={
+    UniqueId: '581658d9-1a1d-49dd-9563-55b15f385109',
+    BuildingNo: 0,
+    BuildingName: 'swati',
+    Description: 'good building',
+    Date_constructed: undefined,
+    Architect: 'Kartik',
+    Contractor: 'Mark',
+    Construction_Cost: 0,
+    Renovation_History: 'last year',
+    Campus: '03828467-2494-47b6-8fe5-f73635e993ce',
+    Zone: 'north',
+    wing: 'cd204cc9-dac7-4724-b08c-cfdfbda02969',
+    NoOFFloors: 0,
+    Floors: [],
+    EntityJson: [],
+    BuildingImage: undefined
+}
+dUniqueId:string
+    
     /**
      * Getter for brands
      */
@@ -102,7 +123,9 @@ export class InventoryService
         this.DataToBeSent.BuildingNo=data.buildingNo;
         // this.DataToBeSent.Campus=data.campus;
         // this.DataToBeSent.Date_constructed=data.date_constructed;
-        this.DataToBeSent.Construction_Cost=data.contractor;
+        // this.DataToBeSent.Construction_Cost=data.construction_Cost;
+        this.DataToBeSent.Construction_Cost=data.Construction_Cost;
+        this.DataToBeSent.Contractor=data.contractor;
         this.DataToBeSent.Description=data.description
         const formObject = new FormData();
 
@@ -116,6 +139,38 @@ export class InventoryService
         );
     }
 
+
+    editConfigData() {
+
+        this.editConfigData
+        this.dataForEdit.UniqueId=this.dUniqueId;
+        const formObject = new FormData();
+        let data=this.dataForEdit
+
+
+        for (let key in data) {
+            formObject.append(key, (data as any)[key]);
+        }
+
+        return this._httpClient.post(
+            'https://cmi-ofm.azurewebsites.net/api/EntityConfig/EditBuildingConfig/',
+            formObject
+        );
+    }
+
+    updateData(editedData: any, index: string) {
+        //editedData.programID = programID;
+        const formObject = new FormData();
+        for (let key in editedData) {
+            formObject.append(key, (editedData as any)[key]);
+        }
+        formObject.append('UniqueId', index);
+
+        return this._httpClient.post(
+            'https://cmi-ofm.azurewebsites.net/api/EntityConfig/EditBuildingConfig/',
+            formObject
+        );
+    }
     /**
      * Getter for tags
      */

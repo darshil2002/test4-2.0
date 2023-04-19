@@ -110,3 +110,22 @@ export interface Root {
     IsActive: boolean
     BuildingImage: string
   }
+
+  export interface editDataType{
+UniqueId:string
+BuildingNo: number
+BuildingName:string
+Description: string
+Date_constructed: any
+Architect: string
+Contractor:string 
+Construction_Cost: number
+Renovation_History: string
+Campus:string
+Zone: string
+wing: string
+NoOFFloors: number
+Floors: []
+EntityJson: []
+BuildingImage: any 
+  }

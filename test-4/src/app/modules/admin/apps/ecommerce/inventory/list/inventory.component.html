@@ -97,7 +97,7 @@
                         </div>
               <!-- ldsflkds -->
                         <!-- <button class="btn btn-primary"(click)="myFormData(NewProgramData.value)">Submit</button> -->
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button  class="btn btn-primary" type="submit">Submit</button>
                       </form>
                     </div>
                   </div>
@@ -108,6 +108,7 @@
 
 
               <!-- second model....  -->
+              <!-- for edit  -->
 
 
 
@@ -119,12 +120,12 @@
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                      <!-- add form  -->
+                      <!-- edit form  -->
               
-                      <form #EditForm="ngForm" (ngSubmit)="myFormData(NewProgramData.value)" >
+                      <form #EditForm="ngForm" (ngSubmit)="editFromData(EditForm.value)" >
                         <div class="mb-3">
                           <label for="buildingName" class="form-label">building Name</label>
-                          <input type="text" class="form-control" [ngModel]="" name="buildingName">
+                          <input type="text" class="form-control" [ngModel]="editData.BuildingName" name="buildingName">
                         </div>
 
                           <select [(ngModel)]="selectedItem" *ngIf="newArray" class="form-select form-select-sm" aria-label=".form-select-sm example" [ngModelOptions]="{standalone: true}">
@@ -136,29 +137,29 @@
                           
                         <div class="mb-3">
                           <label for="buildingNumber" class="form-label">building Number</label>
-                          <input type="text" class="form-control" [ngModel]="" name="buildingNo">
+                          <input type="text" class="form-control" [ngModel]="editData.BuildingNo" name="buildingNo">
                         </div>
               
                         <div class="mb-3">
                           <label for="Architect" class="form-label">Architect</label>
-                          <input type="text" class="form-control" [ngModel]="" name="architect">
+                          <input type="text" class="form-control" [ngModel]="editData.Architect" name="architect">
                         </div>
               
                         <div class="mb-3">
                           <label for="contractor" class="form-label"> contractor </label>
-                          <input type="text" class="form-control" [ngModel]="" name="contractor">
+                          <input type="text" class="form-control" [ngModel]="editData.Contractor" name="contractor">
                         </div>
                         <div class="mb-3">
                           <label for="renovation" class="form-label"> renovation history </label>
-                          <input type="text" class="form-control" [ngModel]="" name="renovation_History">
+                          <input type="text" class="form-control" [ngModel]="editData.Renovation_History" name="renovation_History">
                         </div>
                         <div class="mb-3">
                           <label for="contractor" class="form-label"> Construction Cost </label>
-                          <input type="number" class="form-control" [ngModel]="" name="cost">
+                          <input type="number" class="form-control" [ngModel]="editData.Construction_Cost" name="cost">
                         </div>
                         <div class="mb-3">
                           <label for="description" class="form-label"> description </label>
-                          <input type="text" class="form-control" [ngModel]="" name="description">
+                          <input type="text" class="form-control" [ngModel]="editData.Description" name="description">
                         </div>
                         <div class="mb-3">
                           <label for="date" class="form-label"> Date </label>

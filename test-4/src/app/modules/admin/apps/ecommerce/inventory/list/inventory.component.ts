@@ -280,6 +280,20 @@ BuildingImage: ''
             })
             /* .subscribe(); */
     }
+    editFromData(data:any){
+        console.log('my edit data',data)
+        data.architect=this._inventoryService.dataForEdit.Architect;
+        data.buildingName=this._inventoryService.dataForEdit.BuildingName;
+        data.buildingNo=this._inventoryService.dataForEdit.BuildingNo;
+        data.contractor=this._inventoryService.dataForEdit.Contractor;
+        data.cost=this._inventoryService.dataForEdit.Construction_Cost;
+        data.renovation_History=this._inventoryService.dataForEdit.Renovation_History;
+      
+
+        this._inventoryService.editConfigData().subscribe(res=>{
+            console.log(res)
+        })
+    }
     /**
      * After view init
      */
@@ -359,7 +373,8 @@ BuildingImage: ''
 
     toggleDetails(productId: string): void
     {
-        console.log(productId)
+        console.log(productId);
+        this._inventoryService.dUniqueId=productId;
         const filteredArray = this.darshilAllData.filter(obj => obj.uniqueId === productId);
         console.log('filtored Array',filteredArray)
         this.shareDataId=productId;
@@ -367,7 +382,14 @@ BuildingImage: ''
         this.editData.BuildingName=filteredArray[0].buildingName;
         this.editData.BuildingNo=+filteredArray[0].buildingNo;
         this.editData.Construction_Cost=+filteredArray[0].construction_Cost;
-        /* this */
+        this.editData.Contractor=filteredArray[0].contractor;
+        this.editData.Description=filteredArray[0].description;
+        this.editData.Renovation_History=filteredArray[0].renovation_History;
+        
+        /* this._inventoryService.editConfigData().subscribe(res=>{
+            console.log(res);
+        }) */
+
 
         // If the product is already selected...
         if ( this.selectedProduct && this.selectedProduct.id === productId )
@@ -390,6 +412,15 @@ BuildingImage: ''
                 // Mark for check
                 this._changeDetectorRef.markForCheck();
             });
+    }
+
+    updateConfig(data: any, id: string) {
+        /* data.Floors = []; */
+        data.EntityJson = [];
+        data.BuildingImage = '';
+        this._inventoryService.updateData(data.value, id).subscribe((res) => {
+            console.log(res);
+        });
     }
 
     /**
