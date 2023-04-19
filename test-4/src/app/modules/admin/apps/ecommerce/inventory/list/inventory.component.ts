@@ -45,6 +45,7 @@ export class InventoryListComponent implements OnInit, AfterViewInit, OnDestroy
 
     editData:DataToSend={
         BuildingNo: 0,
+        /* BuildingNo: 0, */
         BuildingName: '',
         Description: '',
         Date_constructed: '',
@@ -53,10 +54,10 @@ export class InventoryListComponent implements OnInit, AfterViewInit, OnDestroy
         Construction_Cost: 0,
         Renovation_History:'',
         Campus: 'ecc7a770-1d53-4f6f-8507-03eca95dc4bf',
-        Zone: '',
-        wing: '',
+        Zone: 'south',
+        wing: '3',
         IsActive: false,
-        BuildingImage: ''
+        BuildingImage: 'image.hrf'
         }
 
     /* npms .....  */
@@ -282,12 +283,12 @@ BuildingImage: ''
     }
     editFromData(data:any){
         console.log('my edit data',data)
-        data.architect=this._inventoryService.dataForEdit.Architect;
-        data.buildingName=this._inventoryService.dataForEdit.BuildingName;
-        data.buildingNo=this._inventoryService.dataForEdit.BuildingNo;
-        data.contractor=this._inventoryService.dataForEdit.Contractor;
-        data.cost=this._inventoryService.dataForEdit.Construction_Cost;
-        data.renovation_History=this._inventoryService.dataForEdit.Renovation_History;
+        this._inventoryService.dataForEdit.Architect=data.architect;
+     this._inventoryService.dataForEdit.BuildingName=data.buildingName;
+      this._inventoryService.dataForEdit.BuildingNo= data.buildingNo;
+        this._inventoryService.dataForEdit.Contractor=data.contractor;
+        this._inventoryService.dataForEdit.Construction_Cost=data.cost;
+        this._inventoryService.dataForEdit.Renovation_History=data.renovation_History;
       
 
         this._inventoryService.editConfigData().subscribe(res=>{
@@ -380,6 +381,7 @@ BuildingImage: ''
         this.shareDataId=productId;
         this.editData.Architect=filteredArray[0].architect;
         this.editData.BuildingName=filteredArray[0].buildingName;
+        /* this.editData.BuildingNo=+filteredArray[0].buildingNo; */
         this.editData.BuildingNo=+filteredArray[0].buildingNo;
         this.editData.Construction_Cost=+filteredArray[0].construction_Cost;
         this.editData.Contractor=filteredArray[0].contractor;

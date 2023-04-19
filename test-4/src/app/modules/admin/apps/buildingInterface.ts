@@ -113,6 +113,7 @@ export interface Root {
 
   export interface editDataType{
 UniqueId:string
+// BuildingNo: string
 BuildingNo: number
 BuildingName:string
 Description: string
