@@ -68,12 +68,16 @@ export class InventoryListComponent implements OnInit, AfterViewInit, OnDestroy
     dropdownList = [];
     selectedItems = [];
     dropdownSettings:IDropdownSettings 
+    dropdownList2 = [];
+    selectedItems2 = [];
+    dropdownSettings2:IDropdownSettings 
     /* picker:any;
     matDatepicker:any; */
     selectedItem: { name: string, campusId: string }
     newArray:[];
     /* newArray:any=[{name:'darsh',campusId:'xyz'},{name:'rahul',campusId:'u'}] */
-    zonesTemp:any[]=[];
+    zonesTemp:any=[];
+    wingTemp:any[]=[];
     darshilAllData:Config[]=[]
     @ViewChild(MatPaginator) private _paginator: MatPaginator;
     @ViewChild(MatSort) private _sort: MatSort;
@@ -142,8 +146,8 @@ BuildingImage: ''
         this.getAllApiData()
     
         this.dropdownList = [
-      { item_id: '04cd0a96-dfb6-47b3-af90-11c49b1c51f9', item_text: 'Aquarious' },
-      { item_id: 'cd204cc9-dac7-4724-b08c-cfdfbda02969', item_text: 'Aries' },
+      /* { item_id: '04cd0a96-dfb6-47b3-af90-11c49b1c51f9', item_text: 'Aquarious' },
+      { item_id: 'cd204cc9-dac7-4724-b08c-cfdfbda02969', item_text: 'Aries' }, */
    
     ];
     this.selectedItems = [
@@ -151,14 +155,41 @@ BuildingImage: ''
       { item_id: 4, item_text: 'Navsari' } */
     ];
     this.dropdownSettings= {
-      singleSelection: false,
-      idField: 'item_id',
-      textField: 'item_text',
+      singleSelection: true,
+      idField: 'wingId',
+      textField: 'name',
       selectAllText: 'Select All',
       unSelectAllText: 'UnSelect All',
       itemsShowLimit: 3,
       allowSearchFilter: true
     };
+
+
+    /* for second dropdown  */
+
+
+    this.dropdownList2 = [
+      /* { item_id: '04cd0a96-dfb6-47b3-af90-11c49b1c51f9', item_text: 'Aquarious' },
+      { item_id: 'cd204cc9-dac7-4724-b08c-cfdfbda02969', item_text: 'Aries' }, */
+   
+    ];
+    this.selectedItems2 = [
+      /* { item_id: 3, item_text: 'Pune' },
+      { item_id: 4, item_text: 'Navsari' } */
+    ];
+
+    /* campusId,name */
+    this.dropdownSettings2= {
+      singleSelection: true,
+      idField: 'campusId',
+      textField: 'name',
+      selectAllText: 'Select All',
+      unSelectAllText: 'UnSelect All',
+      itemsShowLimit: 3,
+      allowSearchFilter: true
+    };
+
+
         /* this._inventoryService.getDataDarshil().pipe(pluck('configs')).subscribe(res=>{
             console.log(res);
             this.darshilAllData=res;
@@ -281,17 +312,35 @@ BuildingImage: ''
     /* console.log(item); */
     console.log('wind id ...',item.item_id)
     this._inventoryService.DataToBeSent.wing=item.item_id
+    this._inventoryService.dataForEdit.wing=item.item_id
 
   }
   onSelectAll(items: any) {
     console.log(items);
   }
+
+    onItemSelect2(item: any) {
+    /* console.log(item); */
+    console.log('dropdown 2...',item.campusId)
+    /* this._inventoryService.DataToBeSent.wing=item.item_id */
+    this._inventoryService.DataToBeSent.Campus=item.campusId;
+    this._inventoryService.dataForEdit.Campus=item.campusId;
+
+  }
+  onSelectAll2(items: any) {
+    console.log(items);
+  }
+
+
+
   getAllApiData(){
         this._inventoryService.getCampusDarshil().pipe(pluck('zones')).subscribe(res=>{
             /* console.log('all data of campus ...',res); */
+            /* here  */
             this.zonesTemp=res;
-            const newArray = this.zonesTemp.map(({ name, campusId }) => ({ name, campusId }));
-            console.log(newArray);
+            const newArray = this.zonesTemp.map(({ campusId,name }) => ({  campusId,name }));
+             this.dropdownList2 = this.zonesTemp.map(({ campusId,name }) => ({  campusId,name }));
+            console.log('my campus',newArray);
         })
         this._inventoryService.getDataDarshil().pipe(pluck('configs')).subscribe(res=>{
             console.log(res);
@@ -299,8 +348,13 @@ BuildingImage: ''
         })
 
         this._inventoryService.getWingDataD().pipe(pluck('wings')).subscribe(res=>{
-            console.log(res)
+            /* console.log('wings.. data ...',res) */
+this.zonesTemp=res
+            this.dropdownList= this.zonesTemp.map(({ wingId,name }) => ({  wingId,name }));
+console.log(this.dropdownList)
+           
         })
+        /* here2  */
 
     }
 
@@ -320,6 +374,7 @@ BuildingImage: ''
      this._inventoryService.dataForEdit.BuildingName=data.buildingName;
       this._inventoryService.dataForEdit.BuildingNo= data.buildingNo;
         this._inventoryService.dataForEdit.Contractor=data.contractor;
+        this._inventoryService.dataForEdit.Date_constructed=data.date;
         this._inventoryService.dataForEdit.Construction_Cost=data.cost;
         this._inventoryService.dataForEdit.Renovation_History=data.renovation_History;
       
@@ -420,6 +475,7 @@ BuildingImage: ''
         this.editData.Contractor=filteredArray[0].contractor;
         this.editData.Description=filteredArray[0].description;
         this.editData.Renovation_History=filteredArray[0].renovation_History;
+        this.editData.Date_constructed=filteredArray[0].date_constructed;
         
        
 

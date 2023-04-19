@@ -120,6 +120,9 @@ dUniqueId:string
       getWingDataD(){
         return this._httpClient.get('https://cmi-ofm.azurewebsites.net/api/Wing/GetActiveWings')
       }
+    //   getZone(){
+    //     return
+    //   }
       AddConfigData(data: any) {
         console.log('my Data',data);
         this.DataToBeSent.Architect=data.architect;
@@ -131,6 +134,7 @@ dUniqueId:string
         this.DataToBeSent.Construction_Cost=data.Construction_Cost;
         this.DataToBeSent.Contractor=data.contractor;
         this.DataToBeSent.Description=data.description
+        this.DataToBeSent.Date_constructed=data.date
         const formObject = new FormData();
 
         for (let key in this.DataToBeSent) {
