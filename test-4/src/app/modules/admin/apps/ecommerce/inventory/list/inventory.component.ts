@@ -308,6 +308,8 @@ BuildingImage: ''
             )
             .subscribe();
     }
+    
+ 
     onItemSelect(item: any) {
     /* console.log(item); */
     console.log('wind id ...',item.item_id)
@@ -360,6 +362,7 @@ console.log(this.dropdownList)
 
     myFormData(data:any){
            /* debugger; */
+           console.log(data);
            console.log(data.date)
            /* console.log('my datasdkhfkjsfhds',data) */
            this._inventoryService

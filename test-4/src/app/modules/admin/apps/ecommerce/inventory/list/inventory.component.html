@@ -18,16 +18,9 @@
                     [placeholder]="'Search products'">
             </mat-form-field>
             <!-- Add product button -->
-            <!-- inbuulit button nikadyu -->
+      
 
-            <!-- <button
-                class="ml-4"
-                mat-flat-button
-                [color]="'primary'"
-                (click)="createProduct()">
-                <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
-                <span class="ml-2 mr-1">Add</span>
-            </button> -->
+         
             <button class="btn btn-primary my-3 mx-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 Add new Building
             </button>
@@ -61,7 +54,14 @@
                                     (onSelect)="onItemSelect2($event)" (onSelectAll)="onSelectAll2($event)" id="two">
                                 </ng-multiselect-dropdown>
 
+                                <input
+                                name="buildingImage"
+                                [ngModel]=""
+                                type="file"
+                       
+                            />
 
+                           
                                 <select [(ngModel)]="selectedItem" *ngIf="newArray" class="form-select form-select-sm"
                                     aria-label=".form-select-sm example" [ngModelOptions]="{standalone: true}">
                                     <option value="" disabled selected>Select an option</option>
@@ -134,11 +134,6 @@
                                         name="buildingName">
                                 </div>
 
-                                <!-- <select [(ngModel)]="selectedItem" *ngIf="newArray" class="form-select form-select-sm"
-                                    aria-label=".form-select-sm example" [ngModelOptions]="{standalone: true}">
-                                    <option value="" disabled selected>Select an option</option>
-                                    <option *ngFor="let item of newArray" [ngValue]="campusId">{{ item.name }}</option>
-                                </select> -->
 
                                 <ng-multiselect-dropdown [placeholder]="'Wing'"
                                 [settings]="dropdownSettings" [data]="dropdownList" [(ngModel)]="selectedItems"
@@ -185,14 +180,11 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="date" class="form-label"> Date </label>
-                                    <!-- <input type="text" class="form-control" [ngModel]="" name="date"> -->
+                                
                                     {{editData.Date_constructed}}
                                     <input type="date" name="dateEdit" id="dateEdit" [ngModel]="editData.Date_constructed">
                                 </div>
-                                <!-- mat ui date -->
-
-
-                                <!-- <button class="btn btn-primary"(click)="myFormData(NewProgramData.value)">Submit</button> -->
+                           
                                 <button type="submit" class="btn btn-primary">Submit</button>
                             </form>
                         </div>

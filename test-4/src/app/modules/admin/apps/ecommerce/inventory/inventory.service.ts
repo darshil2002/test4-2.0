@@ -12,7 +12,7 @@ export class InventoryService
     post(arg0: string, formObject: FormData) {
         throw new Error('Method not implemented.');
     }
-    // Private
+
     private _brands: BehaviorSubject<InventoryBrand[] | null> = new BehaviorSubject(null);
     private _categories: BehaviorSubject<InventoryCategory[] | null> = new BehaviorSubject(null);
     private _pagination: BehaviorSubject<InventoryPagination | null> = new BehaviorSubject(null);
@@ -120,21 +120,18 @@ dUniqueId:string
       getWingDataD(){
         return this._httpClient.get('https://cmi-ofm.azurewebsites.net/api/Wing/GetActiveWings')
       }
-    //   getZone(){
-    //     return
-    //   }
+    
       AddConfigData(data: any) {
         console.log('my Data',data);
         this.DataToBeSent.Architect=data.architect;
         this.DataToBeSent.BuildingName=data.buildingName;
         this.DataToBeSent.BuildingNo=data.buildingNo;
-        // this.DataToBeSent.Campus=data.campus;
-        // this.DataToBeSent.Date_constructed=data.date_constructed;
-        // this.DataToBeSent.Construction_Cost=data.construction_Cost;
+       
         this.DataToBeSent.Construction_Cost=data.Construction_Cost;
         this.DataToBeSent.Contractor=data.contractor;
         this.DataToBeSent.Description=data.description
         this.DataToBeSent.Date_constructed=data.date
+ 
         const formObject = new FormData();
 
         for (let key in this.DataToBeSent) {
