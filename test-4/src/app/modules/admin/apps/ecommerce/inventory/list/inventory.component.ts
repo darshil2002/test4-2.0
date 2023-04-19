@@ -8,7 +8,8 @@ import { fuseAnimations } from '@fuse/animations';
 import { FuseConfirmationService } from '@fuse/services/confirmation';
 import { InventoryBrand, InventoryCategory, InventoryPagination, InventoryProduct, InventoryTag, InventoryVendor } from 'app/modules/admin/apps/ecommerce/inventory/inventory.types';
 import { InventoryService } from 'app/modules/admin/apps/ecommerce/inventory/inventory.service';
-import { Config, Root } from '../../../buildingInterface';
+import { Config, DataToSend, Root } from '../../../buildingInterface';
+import { IDropdownSettings } from 'ng-multiselect-dropdown';
 
 @Component({
     selector       : 'inventory-list',
@@ -40,6 +41,35 @@ import { Config, Root } from '../../../buildingInterface';
 export class InventoryListComponent implements OnInit, AfterViewInit, OnDestroy
 {
 
+    /* edit data form data */
+
+    editData:DataToSend={
+        BuildingNo: 0,
+        BuildingName: '',
+        Description: '',
+        Date_constructed: '',
+        Architect: '',
+        Contractor: '',
+        Construction_Cost: 0,
+        Renovation_History:'',
+        Campus: 'ecc7a770-1d53-4f6f-8507-03eca95dc4bf',
+        Zone: '',
+        wing: '',
+        IsActive: false,
+        BuildingImage: ''
+        }
+
+    /* npms .....  */
+
+    dropdownList = [];
+    selectedItems = [];
+    dropdownSettings:IDropdownSettings 
+    /* picker:any;
+    matDatepicker:any; */
+    selectedItem: { name: string, campusId: string }
+    newArray:[];
+    /* newArray:any=[{name:'darsh',campusId:'xyz'},{name:'rahul',campusId:'u'}] */
+    zonesTemp:any[]=[];
     darshilAllData:Config[]=[]
     @ViewChild(MatPaginator) private _paginator: MatPaginator;
     @ViewChild(MatSort) private _sort: MatSort;
@@ -59,9 +89,27 @@ export class InventoryListComponent implements OnInit, AfterViewInit, OnDestroy
     tagsEditMode: boolean = false;
     vendors: InventoryVendor[];
     private _unsubscribeAll: Subject<any> = new Subject<any>();
+    shareDataId:any;
 
+/* DataToBeSent:DataToSend={
+BuildingNo: 0,
+BuildingName: '',
+Description: '',
+Date_constructed: '',
+Architect: '',
+Contractor: '',
+Construction_Cost: 0,
+Renovation_History:'',
+Campus: 'ecc7a770-1d53-4f6f-8507-03eca95dc4bf',
+Zone: '',
+wing: '',
+IsActive: false,
+BuildingImage: ''
+} */
+    /* dsfjskd */
+    
 
-    /* my data darshi  */
+    /* my data darshil  */
 
 
     test4allData:any;
@@ -87,15 +135,23 @@ export class InventoryListComponent implements OnInit, AfterViewInit, OnDestroy
      */
     ngOnInit(): void
     {
+        this.getAllApiData()
+    
 
-        
-
-        this._inventoryService.getDataDarshil().pipe(pluck('configs')).subscribe(res=>{
+        /* this._inventoryService.getDataDarshil().pipe(pluck('configs')).subscribe(res=>{
             console.log(res);
             this.darshilAllData=res;
-            
-            
         })
+
+        this._inventoryService.getCampusDarshil().pipe(pluck('zones')).subscribe(res=>{
+            console.log('all data of campus ...',res);
+            this.zonesTemp=res;
+            const newArray = this.zonesTemp.map(({ name, campusId }) => ({ name, campusId }));
+            console.log(newArray);
+        }) */
+
+        /*  */
+     
         // Create the selected product form
         this.selectedProductForm = this._formBuilder.group({
             id               : [''],
@@ -201,6 +257,29 @@ export class InventoryListComponent implements OnInit, AfterViewInit, OnDestroy
             .subscribe();
     }
 
+    getAllApiData(){
+        this._inventoryService.getDataDarshil().pipe(pluck('configs')).subscribe(res=>{
+            console.log(res);
+            this.darshilAllData=res;
+        })
+
+        this._inventoryService.getCampusDarshil().pipe(pluck('zones')).subscribe(res=>{
+            /* console.log('all data of campus ...',res); */
+            this.zonesTemp=res;
+            const newArray = this.zonesTemp.map(({ name, campusId }) => ({ name, campusId }));
+            console.log(newArray);
+        })
+    }
+
+    myFormData(data:any){
+           /* debugger; */
+           /* console.log('my datasdkhfkjsfhds',data) */
+           this._inventoryService
+            .AddConfigData(data).subscribe(res=>{
+                console.log('Response' + res)
+            })
+            /* .subscribe(); */
+    }
     /**
      * After view init
      */
@@ -262,9 +341,34 @@ export class InventoryListComponent implements OnInit, AfterViewInit, OnDestroy
      *
      * @param productId
      */
+
+    /* BuildingNo: 0,
+        BuildingName: '',
+        Description: '',
+        Date_constructed: '',
+        Architect: '',
+        Contractor: '',
+        Construction_Cost: 0,
+        Renovation_History:'',
+        Campus: 'ecc7a770-1d53-4f6f-8507-03eca95dc4bf',
+        Zone: '',
+        wing: '',
+        IsActive: false,
+        BuildingImage: '' */
+
+
     toggleDetails(productId: string): void
     {
         console.log(productId)
+        const filteredArray = this.darshilAllData.filter(obj => obj.uniqueId === productId);
+        console.log('filtored Array',filteredArray)
+        this.shareDataId=productId;
+        this.editData.Architect=filteredArray[0].architect;
+        this.editData.BuildingName=filteredArray[0].buildingName;
+        this.editData.BuildingNo=+filteredArray[0].buildingNo;
+        this.editData.Construction_Cost=+filteredArray[0].construction_Cost;
+        /* this */
+
         // If the product is already selected...
         if ( this.selectedProduct && this.selectedProduct.id === productId )
         {

@@ -2,13 +2,16 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, filter, map, Observable, of, switchMap, take, tap, throwError } from 'rxjs';
 import { InventoryBrand, InventoryCategory, InventoryPagination, InventoryProduct, InventoryTag, InventoryVendor } from 'app/modules/admin/apps/ecommerce/inventory/inventory.types';
-import { Root } from '../../buildingInterface';
+import { DataToSend, Root, RootZone } from '../../buildingInterface';
 
 @Injectable({
     providedIn: 'root'
 })
 export class InventoryService
 {
+    post(arg0: string, formObject: FormData) {
+        throw new Error('Method not implemented.');
+    }
     // Private
     private _brands: BehaviorSubject<InventoryBrand[] | null> = new BehaviorSubject(null);
     private _categories: BehaviorSubject<InventoryCategory[] | null> = new BehaviorSubject(null);
@@ -30,7 +33,21 @@ export class InventoryService
     // -----------------------------------------------------------------------------------------------------
     // @ Accessors
     // -----------------------------------------------------------------------------------------------------
-
+    DataToBeSent:DataToSend={
+        BuildingNo: 0,
+        BuildingName: '',
+        Description: '',
+        Date_constructed: '',
+        Architect: '',
+        Contractor: '',
+        Construction_Cost: 0,
+        Renovation_History:'',
+        Campus: 'ecc7a770-1d53-4f6f-8507-03eca95dc4bf',
+        Zone: '',
+        wing: '',
+        IsActive: false,
+        BuildingImage: ''
+        }
     /**
      * Getter for brands
      */
@@ -74,6 +91,30 @@ export class InventoryService
     getDataDarshil(){
         return this._httpClient.get<Root>('https://cmi-ofm.azurewebsites.net/api/EntityConfig/GetAllBuildings')
       }
+
+      getCampusDarshil(){
+        return this._httpClient.get<RootZone>('https://cmi-ofm.azurewebsites.net/api/Campus/GetActiveCampus')
+      } 
+      AddConfigData(data: any) {
+        console.log('my Data',data);
+        this.DataToBeSent.Architect=data.architect;
+        this.DataToBeSent.BuildingName=data.buildingName;
+        this.DataToBeSent.BuildingNo=data.buildingNo;
+        // this.DataToBeSent.Campus=data.campus;
+        // this.DataToBeSent.Date_constructed=data.date_constructed;
+        this.DataToBeSent.Construction_Cost=data.contractor;
+        this.DataToBeSent.Description=data.description
+        const formObject = new FormData();
+
+        for (let key in data) {
+            formObject.append(key, (data as any)[key]);
+        }
+
+        return this._httpClient.post(
+            'https://cmi-ofm.azurewebsites.net/api/EntityConfig/AddBuildingConfig/',
+            formObject
+        );
+    }
 
     /**
      * Getter for tags

@@ -1,4 +1,8 @@
+import {MatDatepickerModule} from '@angular/material/datepicker';
 import { NgModule } from '@angular/core';
+
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatInputModule } from '@angular/material/input';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ExtraOptions, PreloadAllModules, RouterModule } from '@angular/router';
@@ -13,6 +17,9 @@ import { AppComponent } from 'app/app.component';
 import { appRoutes } from 'app/app.routing';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { myint } from './intercepter';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { CommonModule } from '@angular/common';
+
 
 const routerConfig: ExtraOptions = {
     preloadingStrategy       : PreloadAllModules,
@@ -26,6 +33,7 @@ const routerConfig: ExtraOptions = {
     imports     : [
         BrowserModule,
         BrowserAnimationsModule,
+        CommonModule,
         RouterModule.forRoot(appRoutes, routerConfig),
 
         // Fuse, FuseConfig & FuseMockAPI
@@ -37,7 +45,14 @@ const routerConfig: ExtraOptions = {
         CoreModule,
 
         // Layout module of your application
-        LayoutModule
+        LayoutModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatInputModule,
+
+        // npm libs 
+        // NgMultiSelectDropDownModule.forRoot()
+        NgMultiSelectDropDownModule.forRoot()
     ],
     providers:[
         {provide:HTTP_INTERCEPTORS,

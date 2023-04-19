@@ -52,20 +52,27 @@
                     <div class="modal-body">
                       <!-- add form  -->
               
-                      <form #NewProgramData="ngForm" >
+                      <form #NewProgramData="ngForm" (ngSubmit)="myFormData(NewProgramData.value)" >
                         <div class="mb-3">
                           <label for="buildingName" class="form-label">building Name</label>
                           <input type="text" class="form-control" [ngModel]="" name="buildingName">
                         </div>
-              
+
+                          <select [(ngModel)]="selectedItem" *ngIf="newArray" class="form-select form-select-sm" aria-label=".form-select-sm example" [ngModelOptions]="{standalone: true}">
+                            <option value="" disabled selected>Select an option</option>
+                            <option *ngFor="let item of newArray" [ngValue]="campusId">{{ item.name }}</option>
+                          </select>
+
+                       
+                          
                         <div class="mb-3">
                           <label for="buildingNumber" class="form-label">building Number</label>
-                          <input type="text" class="form-control" [ngModel]="" name="buildingNumber">
+                          <input type="text" class="form-control" [ngModel]="" name="buildingNo">
                         </div>
               
                         <div class="mb-3">
                           <label for="Architect" class="form-label">Architect</label>
-                          <input type="text" class="form-control" [ngModel]="" name="Architect">
+                          <input type="text" class="form-control" [ngModel]="" name="architect">
                         </div>
               
                         <div class="mb-3">
@@ -74,7 +81,7 @@
                         </div>
                         <div class="mb-3">
                           <label for="renovation" class="form-label"> renovation history </label>
-                          <input type="text" class="form-control" [ngModel]="" name="renovation">
+                          <input type="text" class="form-control" [ngModel]="" name="renovation_History">
                         </div>
                         <div class="mb-3">
                           <label for="contractor" class="form-label"> Construction Cost </label>
@@ -84,11 +91,82 @@
                           <label for="description" class="form-label"> description </label>
                           <input type="text" class="form-control" [ngModel]="" name="description">
                         </div>
+                        <div class="mb-3">
+                          <label for="date" class="form-label"> Date </label>
+                          <input type="text" class="form-control" [ngModel]="" name="date">
+                        </div>
+              <!-- ldsflkds -->
+                        <!-- <button class="btn btn-primary"(click)="myFormData(NewProgramData.value)">Submit</button> -->
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
-                        <input type="text" class="form-control datepicker">
 
+
+
+              <!-- second model....  -->
+
+
+
+              <div class="modal fade" id="EditForm" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="EditForm">Modal title</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <!-- add form  -->
               
-                        <button class="btn btn-primary">Submit</button>
+                      <form #EditForm="ngForm" (ngSubmit)="myFormData(NewProgramData.value)" >
+                        <div class="mb-3">
+                          <label for="buildingName" class="form-label">building Name</label>
+                          <input type="text" class="form-control" [ngModel]="" name="buildingName">
+                        </div>
+
+                          <select [(ngModel)]="selectedItem" *ngIf="newArray" class="form-select form-select-sm" aria-label=".form-select-sm example" [ngModelOptions]="{standalone: true}">
+                            <option value="" disabled selected>Select an option</option>
+                            <option *ngFor="let item of newArray" [ngValue]="campusId">{{ item.name }}</option>
+                          </select>
+
+                       
+                          
+                        <div class="mb-3">
+                          <label for="buildingNumber" class="form-label">building Number</label>
+                          <input type="text" class="form-control" [ngModel]="" name="buildingNo">
+                        </div>
+              
+                        <div class="mb-3">
+                          <label for="Architect" class="form-label">Architect</label>
+                          <input type="text" class="form-control" [ngModel]="" name="architect">
+                        </div>
+              
+                        <div class="mb-3">
+                          <label for="contractor" class="form-label"> contractor </label>
+                          <input type="text" class="form-control" [ngModel]="" name="contractor">
+                        </div>
+                        <div class="mb-3">
+                          <label for="renovation" class="form-label"> renovation history </label>
+                          <input type="text" class="form-control" [ngModel]="" name="renovation_History">
+                        </div>
+                        <div class="mb-3">
+                          <label for="contractor" class="form-label"> Construction Cost </label>
+                          <input type="number" class="form-control" [ngModel]="" name="cost">
+                        </div>
+                        <div class="mb-3">
+                          <label for="description" class="form-label"> description </label>
+                          <input type="text" class="form-control" [ngModel]="" name="description">
+                        </div>
+                        <div class="mb-3">
+                          <label for="date" class="form-label"> Date </label>
+                          <input type="text" class="form-control" [ngModel]="" name="date">
+                        </div>
+              <!-- ldsflkds -->
+                        <!-- <button class="btn btn-primary"(click)="myFormData(NewProgramData.value)">Submit</button> -->
+                        <button type="submit" class="btn btn-primary">Submit</button>
                       </form>
                     </div>
                   </div>
@@ -97,6 +175,14 @@
 
         </div>
     </div>
+    <!-- <mat-form-field>
+        <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field> -->
+
+    <!-- modal khatam  -->
+
 
     <!-- Main -->
     <div class="flex flex-auto overflow-hidden">
@@ -213,6 +299,7 @@
                                         <button
                                             class="min-w-10 min-h-7 h-7 px-2 leading-6"
                                             mat-stroked-button
+                                            data-bs-toggle="modal" data-bs-target="#EditForm"
                                             (click)="toggleDetails(product.uniqueId)">
                                             <mat-icon
                                                 class="icon-size-5"
